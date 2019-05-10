@@ -1,9 +1,8 @@
 package com.recycling.Test.Service;
 
-import com.recycling.Test.Dao.FakeUserDao;
+import com.recycling.Test.Dao.UserSQLDao;
 import com.recycling.recycling.production.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -13,7 +12,7 @@ public class UserService {
 
     @Autowired
 //    @Qualifier("MySQL")
-    private FakeUserDao userDao;
+    private UserSQLDao userDao;
 
     public Collection<User> getAllUsers() {
         return userDao.getAllUsers();

@@ -20,27 +20,28 @@ public class User implements Serializable {
     @Column(name = "email", length = 100)
     @Id
     private String email;
-//    @OneToOne(optional = true)
-//    @JoinColumn(nullable = true, name = "UserAccount")
-//    private UserAccount userAccount; //TODO: dessa ska fixas
+    @OneToOne()
+    @JoinColumn(name = "UserAccount")
+    private UserAccount userAccount; //TODO: dessa ska fixas
 
     public User() {
 
     }
 
-    public User(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email, UserAccount userAccount) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.userAccount = userAccount;
     }
 
-//    public UserAccount getUserAccount() {
-//        return userAccount;
-//    }
-//
-//    public void setUserAccount(UserAccount userAccount) {
-//        this.userAccount = userAccount;
-//    }
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
 
     public String getFirstName() {
         return firstName;
