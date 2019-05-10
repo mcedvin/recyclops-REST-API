@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-//@Controller
 @RestController
-@RequestMapping("/UserAccounts")
+@RequestMapping("/useraccounts")
 public class UserAccountController {
 
     @Autowired

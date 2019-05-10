@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 @Repository
 public class UserSQLDao{
@@ -22,6 +23,10 @@ public class UserSQLDao{
     }
 
     public void removeUserById(int id){
+        for(User s : getAllUsers()){
+            if(s.getUserAccount() != null && s.getUserAccount().getId() == id)
+                usersRepository.delete(s);
+        }
     }
 
     public void updateUser(User updatedUser){
