@@ -9,19 +9,19 @@ import java.util.Date;
 @Entity
 @Table(name = "station")
 public class Station implements Serializable {
-    @GeneratedValue
-    @ManyToMany
-    @JoinColumn(nullable = true, name = "availableMaterials")
-    private Collection<Material> availableMaterials = new ArrayList<Material>();
+//    @GeneratedValue
     @Id
     @Column(name = "stationName", length = 100)
     private String stationName;
     @Column(name = "lastEmpty")
     private Date lastEmpty;
-    @OneToOne(optional = true)
-    @JoinColumns(value = {@JoinColumn(nullable = true, name = "stationPositionX"),
-            @JoinColumn(nullable = true, name = "stationPositionY")})
+    @OneToOne()
+    @JoinColumns(value = {@JoinColumn(name = "stationPositionX"),
+            @JoinColumn(name = "stationPositionY")})
     private Position pos;
+    @ManyToMany
+    @JoinColumn(name = "availableMaterials")
+    private Collection<Material> availableMaterials = new ArrayList<Material>();
 
     public Station(String stationName, Position pos) {
         this.stationName = stationName;
@@ -34,6 +34,18 @@ public class Station implements Serializable {
 
     public String getStationName() {
         return stationName;
+    }
+
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
+    }
+
+    public Collection<Material> getAvailableMaterials() {
+        return availableMaterials;
+    }
+
+    public void setAvailableMaterials(Material m) {
+        availableMaterials.add(m);
     }
 
     public Position getPos() {
@@ -50,9 +62,5 @@ public class Station implements Serializable {
 
     public void setLastEmpty() {
         lastEmpty = new Date();
-    }
-
-    public String toString() {
-        return stationName + " på position: " + pos;
     }
 }

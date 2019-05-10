@@ -32,6 +32,6 @@ public class UserAccountSQLDao {
     }
 
     public void addUserAccount(UserAccount newUserAccount){
-
+        UserAccountsRepository.save(newUserAccount);
     }
 }

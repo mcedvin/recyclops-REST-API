@@ -1,8 +1,10 @@
 package com.recycling.Test.Controller;
 
 
+import com.recycling.Test.Dao.UserAccountSQLDao;
 import com.recycling.Test.Service.UserService;
 import com.recycling.recycling.production.User;
+import com.recycling.recycling.production.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    UserAccountSQLDao userAccountSQLDao;
 
-//        @GetMapping(value = "/all")
+    //        @GetMapping(value = "/all")
     @RequestMapping(method = RequestMethod.GET)
     public Collection<User> getAllUsers() {
         return userService.getAllUsers();
@@ -35,17 +39,17 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateUser(@RequestBody User user) {
+        if (user.getUserAccount() != null) {
+            userAccountSQLDao.addUserAccount(user.getUserAccount());
+        }
         userService.updateUser(user);
     }
 
-////        @PostMapping(value = "/load")
-//    public void addUser(@RequestBody User user) {
-//        userService.addUser(user);
-//    }
-
-//    @PostMapping(value = "/load")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addUser(@RequestBody final User user) {
+        if (user.getUserAccount() != null) {
+            userAccountSQLDao.addUserAccount(user.getUserAccount());
+        }
         userService.addUser(user);
     }
 }

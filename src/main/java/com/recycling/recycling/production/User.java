@@ -1,7 +1,6 @@
 package com.recycling.recycling.production;
 
 
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;

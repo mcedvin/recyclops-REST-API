@@ -16,4 +16,7 @@ public class StationService {
     public Collection<Station> getAllStations() {
         return stationDao.getAllStations();
     }
+    public void addStation(Station s){
+        stationDao.addStation(s);
+    }
 }
