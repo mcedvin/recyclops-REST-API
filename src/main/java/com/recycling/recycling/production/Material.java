@@ -21,6 +21,9 @@ public class Material implements Serializable {
         this.materialType = materialType;
         this.Co2Emmission = Co2Emmission;
     }
+    public Material(){
+
+    }
 
     public String getMaterialType() {
         return materialType;

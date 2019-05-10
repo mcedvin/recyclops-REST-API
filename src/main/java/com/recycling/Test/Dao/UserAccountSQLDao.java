@@ -1,4 +1,4 @@
-package com.recycling.Test.Controller;
+package com.recycling.Test.Dao;
 
 import com.recycling.DB.repository.UserAccountsRepository;
 import com.recycling.recycling.production.UserAccount;

@@ -1,9 +1,8 @@
 package com.recycling.Test.Service;
 
-import com.recycling.Test.Controller.UserAccountSQLDao;
+import com.recycling.Test.Dao.UserAccountSQLDao;
 import com.recycling.recycling.production.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
