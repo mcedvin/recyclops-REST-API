@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.HashMap;
 
 @Repository
 public class UserSQLDao {
@@ -28,7 +27,6 @@ public class UserSQLDao {
                 usersRepository.delete(s);
         }
     }
-
     public void updateUser(User updatedUser) {
         for (User s : usersRepository.findAll()) {
             if (s.getEmail() == updatedUser.getEmail()) {
@@ -40,8 +38,7 @@ public class UserSQLDao {
         }
         usersRepository.save(updatedUser);
     }
-
     public void addUser(User newUser) {
-            usersRepository.save((newUser));
+        usersRepository.save((newUser));
     }
 }

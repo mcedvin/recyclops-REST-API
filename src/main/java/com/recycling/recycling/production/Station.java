@@ -44,7 +44,11 @@ public class Station implements Serializable {
         return availableMaterials;
     }
 
-    public void setAvailableMaterials(Material m) {
+    public void setAvailableMaterials(Collection<Material> availableMaterials){
+        this.availableMaterials = availableMaterials;
+    }
+
+    public void addAvailableMaterial(Material m) {
         availableMaterials.add(m);
     }
 
@@ -60,7 +64,7 @@ public class Station implements Serializable {
         return lastEmpty;
     }
 
-    public void setLastEmpty() {
+    public void setLastEmpty(Date date) {
         lastEmpty = new Date();
     }
 }

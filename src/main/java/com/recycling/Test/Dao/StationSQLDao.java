@@ -15,9 +15,6 @@ public class StationSQLDao {
     private StationRepository stationRepository;
 
     public Collection<Station> getAllStations() {
-//        Collection<Station> stations = new com.recycling.APIparsing.StationParsing().getAllStations().values();
-//        for (Station s : stations)
-//            stationRepository.save(s);
         return stationRepository.findAll();
     }
 
@@ -30,7 +27,15 @@ public class StationSQLDao {
     }
 
     public void updateStation(Station updatedStation) {
-
+        for (Station s : stationRepository.findAll()) {
+            if (s.getStationName() == updatedStation.getStationName()) {
+                s.setAvailableMaterials(updatedStation.getAvailableMaterials());
+                s.setLastEmpty(updatedStation.getLastEmpty());
+                s.setPos(updatedStation.getPos());
+                return;
+            }
+        }
+        stationRepository.save(updatedStation);
     }
 
     public void addStation(Station newStation) {
