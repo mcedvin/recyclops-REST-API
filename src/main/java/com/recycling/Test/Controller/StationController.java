@@ -32,9 +32,9 @@ public class StationController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addStation(@RequestBody final Station s){
-//        if (s.getPos() != null) {
-//            positionSQLDao.addPosition(s.getPos());
-//        }
+        if (s.getPos() != null) {
+            positionSQLDao.addPosition(s.getPos());
+        }
         if(s.getAvailableMaterials() != null){
             for(Material m : s.getAvailableMaterials()){
                 materialSQLDao.addmaterial(m);
