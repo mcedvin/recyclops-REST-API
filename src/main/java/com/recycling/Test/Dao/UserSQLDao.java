@@ -17,7 +17,19 @@ public class UserSQLDao {
         return usersRepository.findAll();
     }
 
-    public User getUserById(int id) {
+//    public User getUserById(int id) {
+//        for (User s : usersRepository.findAll()) {
+//            if (s.getUserAccount() != null && s.getUserAccount().getId() == id) {
+//                return s;
+//            }
+//        }
+//        return null;
+//    }
+    public User getUserByEmail(String mail){
+        for(User s : usersRepository.findAll()){
+            if(s.getEmail().equals(mail))
+                return s;
+        }
         return null;
     }
 

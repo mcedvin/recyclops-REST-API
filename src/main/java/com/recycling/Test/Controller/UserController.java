@@ -27,9 +27,14 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUserById(@PathVariable("id") int id) {
-        return userService.getUserById(id);
+//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//    public User getUserById(@PathVariable("id") int id) {
+//        return userService.getUserById(id);
+//    }
+
+    @RequestMapping(value = "/{mail}", method =  RequestMethod.GET)
+    public User getUserByEmail(@PathVariable("mail") String mail){
+    return userService.getUserByEmail(mail);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -37,7 +42,7 @@ public class UserController {
         userService.removeUserById(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/put", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateUser(@RequestBody User user) {
         if (user.getUserAccount() != null) {
             userAccountSQLDao.addUserAccount(user.getUserAccount());
@@ -45,7 +50,7 @@ public class UserController {
         userService.updateUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/post", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addUser(@RequestBody final User user) {
         if (user.getUserAccount() != null) {
             userAccountSQLDao.addUserAccount(user.getUserAccount());

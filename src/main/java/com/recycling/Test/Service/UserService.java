@@ -17,8 +17,11 @@ public class UserService {
     public Collection<User> getAllUsers() {
         return userDao.getAllUsers();
     }
-    public User getUserById(int id){
-        return userDao.getUserById(id);
+//    public User getUserById(int id){
+//        return userDao.getUserById(id);
+//    }
+    public User getUserByEmail(String mail){
+        return userDao.getUserByEmail(mail);
     }
     public void removeUserById(int id){
         userDao.removeUserById(id);
