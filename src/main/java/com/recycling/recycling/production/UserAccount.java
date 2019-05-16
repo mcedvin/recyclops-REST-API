@@ -11,7 +11,6 @@ public class UserAccount implements Serializable {
     private int id;
     @Column(name = "Password")
     private String password; //TODO: måste krypteras på något sätt
-
     public UserAccount(){
 
     }

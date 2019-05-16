@@ -23,8 +23,11 @@ public class UserService {
     public User getUserByEmail(String mail){
         return userDao.getUserByEmail(mail);
     }
-    public void removeUserById(int id){
-        userDao.removeUserById(id);
+//    public void removeUserById(int id){
+//        userDao.removeUserById(id);
+//    }
+    public void deleteUserByMail(String mail){
+        userDao.deleteUserByMail(mail);
     }
     public void updateUser(User user){
         userDao.updateUser(user);

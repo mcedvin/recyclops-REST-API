@@ -32,6 +32,12 @@ public class UserSQLDao {
         }
         return null;
     }
+    public void deleteUserByMail(String mail){
+        for (User s : getAllUsers()) {
+            if (s.getEmail() != null && s.getEmail().equals(mail))
+                usersRepository.delete(s);
+        }
+    }
 
     public void removeUserById(int id) {
         for (User s : getAllUsers()) {

@@ -16,6 +16,10 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+    //TODO: returnera http 400-kod ifall user redan finns vid PUT/POST
+    //TODO: skriv PATCH-funktionalitet
+    //TODO: hantera ifall user
+    //TODO:
     @Autowired
     private UserService userService;
     @Autowired
@@ -27,19 +31,23 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
 //    public User getUserById(@PathVariable("id") int id) {
 //        return userService.getUserById(id);
 //    }
 
-    @RequestMapping(value = "/{mail}", method =  RequestMethod.GET)
-    public User getUserByEmail(@PathVariable("mail") String mail){
-    return userService.getUserByEmail(mail);
+    @RequestMapping(value = "/{mail}", method = RequestMethod.GET)
+    public User getUserByEmail(@PathVariable("mail") String mail) {
+        return userService.getUserByEmail(mail);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteUserById(@PathVariable("id") int id) {
-        userService.removeUserById(id);
+//    @RequestMapping(value = "/deleteById/{id}", method = RequestMethod.DELETE)
+//    public void deleteUserById(@PathVariable("id") int id) {
+//        userService.removeUserById(id);
+//    }
+    @RequestMapping(value = "/{mail}", method = RequestMethod.DELETE)
+    public void deleteUserByMail(@PathVariable("mail") String mail) {
+        userService.deleteUserByMail(mail);
     }
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)

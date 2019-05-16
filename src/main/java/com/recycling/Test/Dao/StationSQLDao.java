@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public class StationSQLDao {
+    //TODO: sortera stationer? Utifrån
 
     @Autowired
     private StationRepository stationRepository;
@@ -30,7 +31,6 @@ public class StationSQLDao {
         for (Station s : stationRepository.findAll()) {
             if (s.getStationName() == updatedStation.getStationName()) {
                 s.setAvailableMaterials(updatedStation.getAvailableMaterials());
-                s.setLastEmpty(updatedStation.getLastEmpty());
                 s.setPos(updatedStation.getPos());
                 return;
             }
