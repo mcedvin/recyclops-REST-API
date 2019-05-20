@@ -18,6 +18,4 @@ public class MaterialSchedule extends Schedule{
     public MaterialSchedule(){
 
     }
-
-
 }

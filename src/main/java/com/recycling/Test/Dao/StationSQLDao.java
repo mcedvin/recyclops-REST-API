@@ -1,6 +1,7 @@
 package com.recycling.Test.Dao;
 
 import com.recycling.DB.repository.StationRepository;
+import com.recycling.recycling.production.Position;
 import com.recycling.recycling.production.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,13 @@ public class StationSQLDao {
             }
         }
         stationRepository.save(updatedStation);
+    }
+    public Station getStationFromPosition(Position p){
+        for(Station s : stationRepository.findAll()){
+            if(s.getPos().equals(p))
+                return s;
+        }
+        return null;
     }
 
     public void addStation(Station newStation) {

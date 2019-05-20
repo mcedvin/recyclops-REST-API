@@ -81,3 +81,22 @@ public class Station implements Serializable {
         this.materialSchedules = materialSchedules;
     }
 }
+
+
+//    {
+//            "stationName": "Ålgrytevägen 90",
+//            "pos": {
+//            "x": 59.29917,
+//            "y": 17.94139
+//
+//            },
+//            "availableMaterials": [
+//            {"materialType": "Glas"},
+//            {"materialType": "Kartong"},
+//            {"materialType": "Metall"},
+//            {"materialType": "Blandplast"},
+//            {"materialType": "Tidningar"}],
+//            "cleaningSchedule": {"date": "2019-05-21T00:00:00+00:00"},
+//            "materialSchedules": []
+//            }
+//

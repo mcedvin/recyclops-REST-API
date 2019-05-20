@@ -7,15 +7,14 @@ import java.io.Serializable;
 @Table(name = "position")
 @IdClass(PositionID.class)
 public class Position implements Serializable {
-    @GeneratedValue
     @Id
     @Column(name = "x")
-    private int x;
+    private double x;
     @Id
     @Column(name = "y")
-    private int y;
+    private double y;
 
-    public Position(int x, int y) {
+    public Position(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -24,20 +23,28 @@ public class Position implements Serializable {
 
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Position){
+            return x==((Position) obj).x && y == ((Position) obj).y;
+        }
+        return false;
     }
 
     public String toString() {

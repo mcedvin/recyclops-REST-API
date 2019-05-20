@@ -1,10 +1,12 @@
 package com.recycling.Test.Controller;
 
 
+import com.recycling.Test.Dao.CleaningScheduleSQLDao;
 import com.recycling.Test.Dao.MaterialSQLDao;
 import com.recycling.Test.Dao.PositionSQLDao;
 import com.recycling.Test.Service.StationService;
 import com.recycling.recycling.production.Material;
+import com.recycling.recycling.production.Position;
 import com.recycling.recycling.production.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,10 +26,17 @@ public class StationController {
     private PositionSQLDao positionSQLDao;
     @Autowired
     private MaterialSQLDao materialSQLDao;
+    @Autowired
+    private CleaningScheduleSQLDao cleaningScheduleSQLDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Station> getAllStations() {
         return stationService.getAllStations();
+    }
+
+    @RequestMapping(value = "/fromPosition", method = RequestMethod.GET)
+    public Station getStationFromPosition(Position p){
+        return stationService.getStationFromPosition(p);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -39,6 +48,9 @@ public class StationController {
             for(Material m : s.getAvailableMaterials()){
                 materialSQLDao.addmaterial(m);
             }
+        }
+        if(s.getCleaningSchedule()!=null){
+            cleaningScheduleSQLDao.addCleaningSchedule(s.getCleaningSchedule());
         }
         stationService.addStation(s);
     }

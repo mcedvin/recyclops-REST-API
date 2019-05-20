@@ -1,7 +1,6 @@
 package com.recycling.recycling.production;
 
 import javax.persistence.*;
-import java.awt.*;
 
 @Entity
 @Table(name = "challenge")
