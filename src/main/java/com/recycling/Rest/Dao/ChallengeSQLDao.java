@@ -28,20 +28,21 @@ public class ChallengeSQLDao {
                 challengeRepository.delete(c);
     }
     public void updateChallenge(Challenge updatedChallenge) {
-        for (Challenge c : challengeRepository.findAll()) {
-            if (c.getName().equals(updatedChallenge.getName())) {
-                c.setName(updatedChallenge.getName());
-                c.setDescription(updatedChallenge.getDescription());
-                c.setDuration(updatedChallenge.getDuration());
-                c.setImage(updatedChallenge.getImage());
-                return;
-            }
-        }
+//        for (Challenge c : challengeRepository.findAll()) {
+//            if (c.getName().equals(updatedChallenge.getName())) {
+//                c.setName(updatedChallenge.getName());
+//                c.setDescription(updatedChallenge.getDescription());
+//                c.setDuration(updatedChallenge.getDuration());
+//                c.setImage(updatedChallenge.getImage());
+//                return;
+//            }
+//        }
         challengeRepository.save(updatedChallenge);
     }
     public void addChallenge(Challenge newChallenge) {
         challengeRepository.save((newChallenge));
     }
+
     public void editChallenge(Challenge challenge){
         for(Challenge c : challengeRepository.findAll())
             if(c.getName().equals(challenge.getName())){
@@ -54,6 +55,7 @@ public class ChallengeSQLDao {
 
                 if(challenge.getImage() != null)
                     c.setImage(challenge.getImage());
+                challengeRepository.save(c);
             }
     }
 }

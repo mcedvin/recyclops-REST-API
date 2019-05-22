@@ -17,14 +17,15 @@ public class UserSQLDao {
         return usersRepository.findAll();
     }
 
-    public User getUserByEmail(String mail){
-        for(User s : usersRepository.findAll()){
-            if(s.getEmail().equals(mail))
+    public User getUserByEmail(String mail) {
+        for (User s : usersRepository.findAll()) {
+            if (s.getEmail().equals(mail))
                 return s;
         }
         return null;
     }
-    public void deleteUserByMail(String mail){
+
+    public void deleteUserByMail(String mail) {
         for (User s : getAllUsers()) {
             if (s.getEmail() != null && s.getEmail().equals(mail))
                 usersRepository.delete(s);
@@ -37,28 +38,32 @@ public class UserSQLDao {
                 usersRepository.delete(s);
         }
     }
-    public void editUser(User editedUser){
-        for(User s : usersRepository.findAll())
-            if(s.getEmail().equals(editedUser.getEmail())){
-                if(editedUser.getFirstName()!=null)
+
+    public void editUser(User editedUser) {
+        for (User s : usersRepository.findAll())
+            if (s.getEmail().equals(editedUser.getEmail())) {
+                if (editedUser.getFirstName() != null)
                     s.setFirstName(editedUser.getFirstName());
-                if(editedUser.getLastName()!=null)
+                if (editedUser.getLastName() != null)
                     s.setLastName(editedUser.getLastName());
-                if(editedUser.getUserAccount()!=null)
+                if (editedUser.getUserAccount() != null)
                     s.setUserAccount(editedUser.getUserAccount());
+                usersRepository.save(s);
             }
     }
+
     public void updateUser(User updatedUser) {
-        for (User s : usersRepository.findAll()) {
-            if (s.getEmail().equals(updatedUser.getEmail())) {
-                s.setFirstName(updatedUser.getFirstName());
-                s.setLastName(updatedUser.getLastName());
-                s.setUserAccount(updatedUser.getUserAccount());
-                return;
-            }
-        }
+//        for (User s : usersRepository.findAll()) {
+//            if (s.getEmail().equals(updatedUser.getEmail())) {
+//                s.setFirstName(updatedUser.getFirstName());
+//                s.setLastName(updatedUser.getLastName());
+//                s.setUserAccount(updatedUser.getUserAccount());
+//                return;
+//            }
+//        }
         usersRepository.save(updatedUser);
     }
+
     public void addUser(User newUser) {
         usersRepository.save((newUser));
     }

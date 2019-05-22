@@ -39,7 +39,7 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/put", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateChallenge(@RequestBody Challenge challenge) {
+    public void updateChallenge(@RequestBody final Challenge challenge) {
 
         challengeService.updateChallenge(challenge);
     }

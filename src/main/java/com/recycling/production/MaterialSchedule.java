@@ -18,4 +18,10 @@ public class MaterialSchedule extends Schedule{
     public MaterialSchedule(){
 
     }
+    public Material getMaterial(){
+        return material;
+    }
+    public void setMaterial(Material material){
+        this.material = material;
+    }
 }

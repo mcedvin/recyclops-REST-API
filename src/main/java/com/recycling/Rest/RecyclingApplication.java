@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 //@ComponentScan(basePackages = {"com.recycling.Rest.Controller"})
 @EnableScheduling
+//TODO: hämta datum, ifall datum är över current date/time, uppdatera datumet som hämtats och öka med två/en dagar
 @SpringBootApplication
 
 
