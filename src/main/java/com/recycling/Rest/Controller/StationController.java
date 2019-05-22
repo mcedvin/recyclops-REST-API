@@ -39,7 +39,7 @@ public class StationController {
         return stationService.getStationFromPosition(p);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/post", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addStation(@RequestBody final Station s){
         if (s.getPos() != null) {
             positionSQLDao.addPosition(s.getPos());
