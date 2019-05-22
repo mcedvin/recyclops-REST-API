@@ -1,6 +1,6 @@
 package com.recycling.DB.repository;
 
-import com.recycling.recycling.production.Material;
+import com.recycling.production.Material;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MaterialScheduleRepository  extends JpaRepository<Material, Integer> {

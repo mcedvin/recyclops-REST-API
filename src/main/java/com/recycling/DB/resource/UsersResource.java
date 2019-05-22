@@ -1,7 +1,7 @@
 package com.recycling.DB.resource;//package com.recycling.DB.resource;
 //
 //import com.recycling.DB.repository.UsersRepository;
-//import com.recycling.recycling.production.User;
+//import com.recycling.production.User;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.*;
 //

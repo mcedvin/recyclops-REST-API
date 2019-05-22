@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 
-import com.recycling.recycling.production.*;
+import com.recycling.production.*;
 
 public class StationParsing {
     HashMap<Integer, Station> stations = new HashMap<>();
