@@ -13,7 +13,6 @@ public class UserAccount implements Serializable {
     private String password; //TODO: måste krypteras på något sätt
     @Column(name = "profilePicture")
     private byte[] profilePicture;
-    //TODO: 
     public UserAccount(){
 
     }

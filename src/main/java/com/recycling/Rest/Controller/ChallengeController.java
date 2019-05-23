@@ -15,7 +15,6 @@ import java.util.Collection;
 public class ChallengeController {
 
     //TODO: returnera http 400-kod ifall Challenge redan finns vid PUT/POST
-    //TODO: skriv PATCH-funktionalitet
     //TODO: hantera ifall Challenge
     @Autowired
     private ChallengeService challengeService;

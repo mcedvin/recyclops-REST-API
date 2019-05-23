@@ -56,3 +56,34 @@ public class StationController {
     }
 
 }
+
+//    {
+//            "stationName": "Ålgrytevägen 90",
+//            "pos": {
+//            "x": 59.29917,
+//            "y": 17.94139
+//            },
+//            "availableMaterials": [
+//            {
+//            "materialType": "Glas"
+//            },
+//            {
+//            "materialType": "Kartong"
+//            },
+//            {
+//            "materialType": "Metall"
+//            },
+//            {
+//            "materialType": "Blandplast"
+//            },
+//            {
+//            "materialType": "Tidningar"
+//            }
+//            ],
+//            "cleaningSchedule": {
+//            "date": "2019-05-25T05:00:00.000Z"
+//
+//            },
+//            "materialSchedules": []
+//            }
+//

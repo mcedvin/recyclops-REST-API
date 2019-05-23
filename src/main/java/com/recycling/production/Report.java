@@ -1,19 +1,21 @@
 package com.recycling.production;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 //TODO: skicka mail till sthlm stad?
 @Entity
 @Table(name = "report")
-public class Report {
-
+public class Report implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+    @OneToOne
     @JoinColumn(name = "station")
     private Station station;
+//    @OneToOne
     @JoinColumn(name = "UserAccount")
     private UserAccount userAccount;
     @Column(name = "finalEndDate")

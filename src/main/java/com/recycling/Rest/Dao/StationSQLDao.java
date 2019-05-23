@@ -59,7 +59,6 @@ public class StationSQLDao {
         stationRepository.save(newStation);
     }
 
-    //TODO: hämta datum, ifall datum är över current date/time, uppdatera datumet som hämtats och öka med två/en dagar
     @Scheduled(cron = "0 0 * * * *")
     public void checkSchedules() {
         Date currentDate = new Date();

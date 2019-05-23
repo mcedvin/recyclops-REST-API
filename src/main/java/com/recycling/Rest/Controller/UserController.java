@@ -14,10 +14,6 @@ import java.util.Collection;
 @RequestMapping("/users")
 public class UserController {
 
-    //TODO: returnera http 400-kod ifall user redan finns vid PUT/POST
-    //TODO: skriv PATCH-funktionalitet
-    //TODO: hantera ifall user
-    //TODO:
     @Autowired
     private UserService userService;
     @Autowired

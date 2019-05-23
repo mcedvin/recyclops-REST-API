@@ -12,13 +12,12 @@ public class User implements Serializable {
     private String firstName;
     @Column(name = "LastName", length = 100)
     private String lastName;
-
     @Column(name = "email", length = 100)
     @Id
     private String email;
     @OneToOne()
     @JoinColumn(name = "UserAccount")
-    private UserAccount userAccount; //TODO: dessa ska fixas
+    private UserAccount userAccount;
 
     public User() {
 

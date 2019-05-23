@@ -2,12 +2,13 @@ package com.recycling.production;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 
 @Entity
 @Table(name = "materialSchedule")
-public class MaterialSchedule extends Schedule{
+public class MaterialSchedule extends Schedule implements Serializable {
 
     private Material material;
 
