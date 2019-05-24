@@ -2,6 +2,7 @@ package com.recycling.Rest.Dao;
 
 import com.recycling.DB.repository.UsersRepository;
 import com.recycling.production.User;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +22,15 @@ public class UserSQLDao {
         for (User s : usersRepository.findAll()) {
             if (s.getEmail().equals(mail))
                 return s;
+        }
+        return null;
+    }
+
+    public User getAndAuthenticateUser(User user) {
+        for (User s : usersRepository.findAll()) {
+            if (s.getEmail().equals(user.getEmail())) {
+                return (BCrypt.checkpw(user.getUserAccount().getPassword(), s.getUserAccount().getPassword())) ? s : null;
+            }
         }
         return null;
     }

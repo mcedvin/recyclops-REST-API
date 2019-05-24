@@ -19,6 +19,9 @@ public class UserService {
     public User getUserByEmail(String mail){
         return userDao.getUserByEmail(mail);
     }
+    public User getAndAuthenticateUser(User user){
+        return userDao.getAndAuthenticateUser(user);
+    }
     public void editUser(User editedUser){userDao.editUser(editedUser);}
     public void deleteUserByMail(String mail){
         userDao.deleteUserByMail(mail);

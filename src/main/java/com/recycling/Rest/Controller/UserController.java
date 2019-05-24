@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    UserAccountSQLDao userAccountSQLDao;
+    private UserAccountSQLDao userAccountSQLDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public Collection<User> getAllUsers() {
@@ -27,6 +27,11 @@ public class UserController {
     @RequestMapping(value = "/{mail}", method = RequestMethod.GET)
     public User getUserByEmail(@PathVariable("mail") String mail) {
         return userService.getUserByEmail(mail);
+    }
+
+    @RequestMapping(value = "/authenticate", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public User getAndAuthenticateUser(@RequestBody User user){
+        return userService.getAndAuthenticateUser(user);
     }
 
     @RequestMapping(value = "/{mail}", method = RequestMethod.DELETE)

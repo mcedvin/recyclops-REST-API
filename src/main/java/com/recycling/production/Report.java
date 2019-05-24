@@ -16,6 +16,7 @@ public class Report implements Serializable {
     @JoinColumn(name = "station")
     private Station station;
 //    @OneToOne
+    //TODO: sätta relation fungerar ej här. FIXA
     @JoinColumn(name = "UserAccount")
     private UserAccount userAccount;
     @Column(name = "finalEndDate")
