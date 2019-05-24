@@ -24,7 +24,7 @@ public class Station implements Serializable {
     @JoinColumn(name = "cleaningSchedule")
     private CleaningSchedule cleaningSchedule;
 
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "materialSchedule")
     private Collection<MaterialSchedule> materialSchedules = new ArrayList<MaterialSchedule>();
 

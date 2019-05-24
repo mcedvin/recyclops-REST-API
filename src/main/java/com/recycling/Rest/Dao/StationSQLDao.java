@@ -63,12 +63,15 @@ public class StationSQLDao {
     public void checkSchedules() {
         Date currentDate = new Date();
         for (Station s : stationRepository.findAll()) {
-            if (s.getCleaningSchedule() != null)
+            if (s.getCleaningSchedule() != null) {
                 if (currentDate.after(s.getCleaningSchedule().getDate())) {
+                    System.out.println("hej igen");
                     CleaningSchedule newCleaningSchedule = new CleaningSchedule(new Date(s.getCleaningSchedule().getDate().getTime() + TimeUnit.DAYS.toMillis(1)));
                     s.setCleaningSchedule(newCleaningSchedule);
                     cleaningScheduleRepository.save(newCleaningSchedule);
+                    stationRepository.save(s);
                 }
+            }
             if (!s.getMaterialSchedules().isEmpty()) {
                 Collection<MaterialSchedule> newMaterialSchedules = new LinkedList<>();
                 for (MaterialSchedule ms : s.getMaterialSchedules()) {
