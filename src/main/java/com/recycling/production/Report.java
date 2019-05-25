@@ -2,6 +2,7 @@ package com.recycling.production;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 //TODO: skicka mail till sthlm stad?
@@ -15,20 +16,29 @@ public class Report implements Serializable {
     @OneToOne
     @JoinColumn(name = "station")
     private Station station;
-//    @OneToOne
+    @Column(name = "finalEndDate")
+    private Date finalEndDate;
+//        @OneToOne
     //TODO: sätta relation fungerar ej här. FIXA
     @JoinColumn(name = "UserAccount")
     private UserAccount userAccount;
-    @Column(name = "finalEndDate")
-    private Date finalEndDate;
+    @JoinColumn(name = "materialEndDates")
+    @ManyToMany
+    private Collection<MaterialSchedule> materialSchedules;
+    @ManyToOne
+    @JoinColumn(name = "cleaningEndDate")
+    private CleaningSchedule cleaningSchedule;
 
-    public Report(){
+    public Report() {
 
     }
-    public Report(Station station, UserAccount userAccount, Date finalEndDate) {
+
+    public Report(Station station, UserAccount userAccount, Date finalEndDate, Collection<MaterialSchedule> materialSchedules, CleaningSchedule cleaningSchedule) {
         this.station = station;
         this.userAccount = userAccount;
         this.finalEndDate = finalEndDate;
+        this.materialSchedules = materialSchedules;
+        this.cleaningSchedule = cleaningSchedule;
     }
 
     public Station getStation() {
@@ -54,6 +64,7 @@ public class Report implements Serializable {
     public void setFinalEndDate(Date finalEndDate) {
         this.finalEndDate = finalEndDate;
     }
+
     public Long getId() {
         return id;
     }
@@ -61,4 +72,22 @@ public class Report implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Collection<MaterialSchedule> getMaterialSchedules() {
+        return materialSchedules;
+    }
+
+    public void setMaterialSchedules(Collection<MaterialSchedule> materialSchedules) {
+        this.materialSchedules = materialSchedules;
+    }
+
+    public CleaningSchedule getCleaningSchedule() {
+        return cleaningSchedule;
+    }
+
+    public void setCleaningSchedule(CleaningSchedule cleaningSchedule) {
+        this.cleaningSchedule = cleaningSchedule;
+    }
+
+
 }

@@ -1,16 +1,16 @@
 package com.recycling.Rest.Controller;
 
+import com.recycling.DB.repository.CleaningScheduleRepository;
+import com.recycling.DB.repository.MaterialScheduleRepository;
 import com.recycling.DB.repository.StationRepository;
 import com.recycling.DB.repository.UserAccountsRepository;
 import com.recycling.Rest.Service.ReportService;
+import com.recycling.production.MaterialSchedule;
 import com.recycling.production.Report;
 import com.recycling.production.Station;
 import com.recycling.production.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -24,11 +24,34 @@ public class ReportController {
     private StationRepository stationRepository;
     @Autowired
     private UserAccountsRepository userAccountsRepository;
+    @Autowired
+    private CleaningScheduleRepository cleaningScheduleRepository;
+    @Autowired
+    private MaterialScheduleRepository materialScheduleRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Report> getAllReports() {
         return reportService.getAllReports();
     }
+
+    //TODO: returnera en modifierad report med bara schedule after currentDate
+    @RequestMapping(value = "/active", method = RequestMethod.GET)
+    public Collection<Report> getActiveReports(){
+        return reportService.getActiveReports();
+    }
+//
+//    @RequestMapping(value = "/{mail}", method = RequestMethod.GET)
+//    public User getUserByEmail(@PathVariable("mail") String mail) {
+//        return userService.getUserByEmail(mail);
+//    }
+
+
+    //TODO: returnera alla aktuella rapporter för en station (argument station, returnerar en Collection Reports)
+    @RequestMapping(value = "/{stationName}", method = RequestMethod.GET)
+    public Collection<Report> getReportsForStation(@PathVariable("stationName") String stationName){
+        return reportService.getReportsForStation(stationName);
+    }
+
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     public void addReport(@RequestBody final Report report) {
@@ -40,7 +63,11 @@ public class ReportController {
             for(UserAccount userAccount : userAccountsRepository.findAll())
                 if(userAccount.getId() == report.getUserAccount().getId())
                     report.setUserAccount(userAccount);
-
+        if(report.getCleaningSchedule()!=null)
+            cleaningScheduleRepository.save(report.getCleaningSchedule());
+        if(!report.getMaterialSchedules().isEmpty())
+            for(MaterialSchedule ms : report.getMaterialSchedules())
+                materialScheduleRepository.save(ms);
         reportService.addReport(report);
     }
 }

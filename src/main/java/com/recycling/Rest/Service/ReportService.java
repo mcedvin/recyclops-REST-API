@@ -11,10 +11,16 @@ import java.util.Collection;
 public class ReportService {
 
     @Autowired
-    ReportSQLDao reportSQLDao;
+    private ReportSQLDao reportSQLDao;
 
     public Collection<Report> getAllReports(){
         return reportSQLDao.getAllReports();
+    }
+    public Collection<Report> getActiveReports(){
+        return reportSQLDao.getActiveReports();
+    }
+    public Collection<Report> getReportsForStation(String stationName){
+        return reportSQLDao.getReportsForStation(stationName);
     }
     public Report getReportById(int id){
         return reportSQLDao.getReportById(id);
