@@ -1,6 +1,7 @@
 package com.recycling.Rest.Dao;
 
 import com.recycling.DB.repository.ReportRepository;
+import com.recycling.Rest.MailHandler;
 import com.recycling.production.MaterialSchedule;
 import com.recycling.production.Report;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ReportSQLDao {
 
     public Collection<Report> getReportsForStation(String stationName){
         Collection<Report> reportsforStation = new LinkedList<>();
-        for(Report r : reportRepository.findAll()){
+        for(Report r : getActiveReports()){
             if(r.getStation().getStationName().equalsIgnoreCase(stationName)){
                 reportsforStation.add(r);
             }
@@ -61,17 +62,18 @@ public class ReportSQLDao {
     }
 
     public void updateReport(Report updatedReport) {
-        for (Report r : reportRepository.findAll()) {
-            if (r.getId().equals(updatedReport.getId())) {
-                r.setStation(updatedReport.getStation());
-                r.setUserAccount(updatedReport.getUserAccount());
-                r.setFinalEndDate(updatedReport.getFinalEndDate());
-                return;
-            }
-        }
+//        for (Report r : reportRepository.findAll()) {
+//            if (r.getStation().getStationName().equals(updatedReport.getId)) {
+//                r.setStation(updatedReport.getStation());
+//                r.setUserAccount(updatedReport.getUserAccount());
+//                r.setFinalEndDate(updatedReport.getFinalEndDate());
+//                return;
+//            }
+//        }
         reportRepository.save(updatedReport);
     }
     public void addReport(Report newReport) {
         reportRepository.save((newReport));
+        new MailHandler().sendMail(newReport);
     }
 }

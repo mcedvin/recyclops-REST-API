@@ -8,6 +8,10 @@ import java.util.Date;
 @MappedSuperclass
 abstract public class Schedule {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    private int id;
+//    @Id
     @Temporal(TemporalType.DATE)
     @Column(name = "date")
     private Date date;

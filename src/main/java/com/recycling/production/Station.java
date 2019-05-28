@@ -12,6 +12,9 @@ public class Station implements Serializable {
     @Id
     @Column(name = "stationName", length = 100)
     private String stationName;
+
+    @Column(name = "postNumber")
+    private int postNumber;
     @OneToOne()
     @JoinColumns(value = {@JoinColumn(name = "stationPositionX"),
             @JoinColumn(name = "stationPositionY")})
@@ -28,8 +31,9 @@ public class Station implements Serializable {
     @JoinColumn(name = "materialSchedule")
     private Collection<MaterialSchedule> materialSchedules = new ArrayList<MaterialSchedule>();
 
-    public Station(String stationName, Position pos) {
+    public Station(String stationName, int postNumber, Position pos) {
         this.stationName = stationName;
+        this.postNumber = postNumber;
         this.pos = pos;
     }
 
@@ -44,7 +48,13 @@ public class Station implements Serializable {
     public void setStationName(String stationName) {
         this.stationName = stationName;
     }
+    public int getPostNumber() {
+        return postNumber;
+    }
 
+    public void setPostNumber(int postNumber) {
+        this.postNumber = postNumber;
+    }
     public Collection<Material> getAvailableMaterials() {
         return availableMaterials;
     }

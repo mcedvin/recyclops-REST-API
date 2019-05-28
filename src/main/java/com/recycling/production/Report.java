@@ -18,8 +18,9 @@ public class Report implements Serializable {
     private Station station;
     @Column(name = "finalEndDate")
     private Date finalEndDate;
-//        @OneToOne
     //TODO: sätta relation fungerar ej här. FIXA
+    //pga User UserAccount är 1..1?
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UserAccount")
     private UserAccount userAccount;
     @JoinColumn(name = "materialEndDates")
@@ -89,5 +90,8 @@ public class Report implements Serializable {
         this.cleaningSchedule = cleaningSchedule;
     }
 
+    public String toString(){
+        return getStation().getStationName();
+    }
 
 }

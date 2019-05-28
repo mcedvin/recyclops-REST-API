@@ -3,9 +3,11 @@ package com.recycling.Rest.Controller;
 
 import com.recycling.Rest.Dao.CleaningScheduleSQLDao;
 import com.recycling.Rest.Dao.MaterialSQLDao;
+import com.recycling.Rest.Dao.MaterialScheduleSQLDao;
 import com.recycling.Rest.Dao.PositionSQLDao;
 import com.recycling.Rest.Service.StationService;
 import com.recycling.production.Material;
+import com.recycling.production.MaterialSchedule;
 import com.recycling.production.Position;
 import com.recycling.production.Station;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class StationController {
     private MaterialSQLDao materialSQLDao;
     @Autowired
     private CleaningScheduleSQLDao cleaningScheduleSQLDao;
+    @Autowired
+    private MaterialScheduleSQLDao materialScheduleSQLDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Station> getAllStations() {
@@ -52,6 +56,9 @@ public class StationController {
         if(s.getCleaningSchedule()!=null){
             cleaningScheduleSQLDao.addCleaningSchedule(s.getCleaningSchedule());
         }
+        if(!s.getMaterialSchedules().isEmpty())
+            for(MaterialSchedule ms : s.getMaterialSchedules())
+                materialScheduleSQLDao.addMaterialSchedule(ms);
         stationService.addStation(s);
     }
 

@@ -3,6 +3,7 @@ package com.recycling.Rest.Dao;
 import com.recycling.production.UserAccount;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -22,7 +23,7 @@ public class UserAccountSQLDao {
     }
 
     public UserAccount getUserAccountById(int id){
-        return null;
+        return UserAccountsRepository.findOne(id);
     }
 
     public void removeUserAccountById(int id){
@@ -43,4 +44,9 @@ public class UserAccountSQLDao {
         else
             System.out.println("The password does not match.");
     }
+    @Scheduled(cron = "0 0 * * * *")
+    public void checkChallenges(){
+
+    }
+
 }

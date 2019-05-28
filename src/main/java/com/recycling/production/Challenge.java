@@ -13,16 +13,22 @@ public class Challenge {
     @Column(name = "duration")
     private int duration;
     @Lob
-    @Column(name="image")
+    @Column(name = "image")
     private byte[] image;
 
-    public Challenge(String name, String description, int duration, byte[] image) {
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "category")
+    private ChallengeCategory challengeCategory;
+
+    public Challenge(String name, String description, int duration, byte[] image, ChallengeCategory challengeCategory) {
         this.name = name;
         this.description = description;
         this.duration = duration;
         this.image = image;
+        this.challengeCategory = challengeCategory;
     }
-    public Challenge(){
+
+    public Challenge() {
 
     }
 
@@ -58,4 +64,18 @@ public class Challenge {
     public void setImage(byte[] image) {
         this.image = image;
     }
+
+
+    public ChallengeCategory getChallengeCategory() {
+        return challengeCategory;
+    }
+
+    public enum ChallengeCategory {
+        //havet naturen djuren luften
+        HAVET,
+        NATUREN,
+        DJUREN,
+        LUFTEN
+    }
 }
+

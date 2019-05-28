@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public User getAndAuthenticateUser(@RequestBody User user){
-        return userService.getAndAuthenticateUser(user);
+    public User getAndAuthenticateUser(@RequestBody String[] login){
+        return userService.getAndAuthenticateUser(login);
     }
 
     @RequestMapping(value = "/{mail}", method = RequestMethod.DELETE)

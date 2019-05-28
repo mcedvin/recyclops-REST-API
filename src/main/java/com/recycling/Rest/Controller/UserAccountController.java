@@ -22,6 +22,13 @@ public class UserAccountController {
         return UserAccountService.getAllUserAccounts();
     }
 
+    //TODO: lägga till en challenge baserat på useraccount-id, tar emot en challenge
+    //    @RequestMapping(value = "/{id}/addChallenge", method = RequestMethod.GET)
+
+    //TODO: complete:a en challenge baserat på useraccount-id, tar emot en challenge
+    //    @RequestMapping(value = "/{id}/addChallenge", method = RequestMethod.GET)
+
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public UserAccount getUserAccountById(@PathVariable("id") int id) {
         return UserAccountService.getUserAccountById(id);

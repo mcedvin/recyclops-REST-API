@@ -5,13 +5,12 @@ import com.recycling.DB.repository.MaterialScheduleRepository;
 import com.recycling.DB.repository.StationRepository;
 import com.recycling.DB.repository.UserAccountsRepository;
 import com.recycling.Rest.Service.ReportService;
-import com.recycling.production.MaterialSchedule;
-import com.recycling.production.Report;
-import com.recycling.production.Station;
-import com.recycling.production.UserAccount;
+import com.recycling.production.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 @RestController
@@ -60,14 +59,38 @@ public class ReportController {
                 if(station.getStationName().equals(report.getStation().getStationName()))
                     report.setStation(station);
         if(report.getUserAccount()!=null)
-            for(UserAccount userAccount : userAccountsRepository.findAll())
+            for(UserAccount userAccount : userAccountsRepository.findAll()){
                 if(userAccount.getId() == report.getUserAccount().getId())
                     report.setUserAccount(userAccount);
-        if(report.getCleaningSchedule()!=null)
-            cleaningScheduleRepository.save(report.getCleaningSchedule());
-        if(!report.getMaterialSchedules().isEmpty())
-            for(MaterialSchedule ms : report.getMaterialSchedules())
-                materialScheduleRepository.save(ms);
+            }
+//        if(report.getCleaningSchedule()!=null)
+//            cleaningScheduleRepository.save(report.getCleaningSchedule());
+//        if(report != null && !report.getMaterialSchedules().isEmpty())
+//            for(MaterialSchedule ms : report.getMaterialSchedules())
+//                materialScheduleRepository.save(ms);
+        report.setCleaningSchedule(report.getStation().getCleaningSchedule());
+        report.setMaterialSchedules(new ArrayList<MaterialSchedule>(report.getStation().getMaterialSchedules()));
         reportService.addReport(report);
+    }
+    @RequestMapping(value = "/put", method = RequestMethod.PUT)
+    public void updateReport(@RequestBody final Report report) {
+        if(report.getStation()!=null)
+            for(Station station : stationRepository.findAll())
+                if(station.getStationName().equals(report.getStation().getStationName()))
+                    report.setStation(station);
+        if(report.getUserAccount()!=null)
+            for(UserAccount userAccount : userAccountsRepository.findAll()){
+                if(userAccount.getId() == report.getUserAccount().getId())
+                    report.setUserAccount(userAccount);
+            }
+//        if(report.getCleaningSchedule()!=null)
+//            cleaningScheduleRepository.save(report.getCleaningSchedule());
+//        if(report != null && !report.getMaterialSchedules().isEmpty())
+//            for(MaterialSchedule ms : report.getMaterialSchedules())
+//                materialScheduleRepository.save(ms);
+        report.setCleaningSchedule(report.getStation().getCleaningSchedule());
+        report.setMaterialSchedules(new ArrayList<MaterialSchedule>(report.getStation().getMaterialSchedules()));
+
+        reportService.updateReport(report);
     }
 }
