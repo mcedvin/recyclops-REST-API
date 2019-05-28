@@ -3,7 +3,6 @@ package com.recycling.production;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 
 @Entity(name = "UserAccount")
 @Table(name = "UserAccount")
@@ -19,11 +18,12 @@ public class UserAccount implements Serializable {
 
     @JoinColumn(name = "challenge")
     @ManyToMany
-    private Collection<Challenge> completedChallenges;
+    private Collection<ChallengeAccepted> completedChallenges;
 
     @JoinColumn(name = "challenge")
-        @ManyToMany
-        private Collection<ChallengeAccepted> currentChallenges;
+    @ManyToMany
+    private Collection<ChallengeAccepted> currentChallenges;
+
     public UserAccount() {
 
     }
@@ -33,7 +33,8 @@ public class UserAccount implements Serializable {
         this.password = password;
         this.profilePicture = profilePicture;
     }
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,11 +50,11 @@ public class UserAccount implements Serializable {
         this.password = password;
     }
 
-    public Collection<Challenge> getCompletedChallenges() {
+    public Collection<ChallengeAccepted> getCompletedChallenges() {
         return completedChallenges;
     }
 
-    public void setCompletedChallenges(Collection<Challenge> completedChallenges) {
+    public void setCompletedChallenges(Collection<ChallengeAccepted> completedChallenges) {
         this.completedChallenges = completedChallenges;
     }
 
@@ -64,13 +65,15 @@ public class UserAccount implements Serializable {
     public void setCurrentChallenges(Collection<ChallengeAccepted> currentChallenges) {
         this.currentChallenges = currentChallenges;
     }
-    public void acceptChallenge(ChallengeAccepted ca){
+
+    public void acceptChallenge(ChallengeAccepted ca) {
         currentChallenges.add(ca);
     }
+
     //TODO: complete challenge
-    public void completeChallenge(Challenge c){
-        completedChallenges.add(c);
-        currentChallenges.remove(c);
+    public void completeChallenge(ChallengeAccepted ca) {
+        completedChallenges.add(ca);
+        currentChallenges.remove(ca);
     }
     //TODO: schedule som tar bort från currentChallenges om den inte avklarad inom duration time
 

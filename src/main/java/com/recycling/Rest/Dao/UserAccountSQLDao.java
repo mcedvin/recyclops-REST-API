@@ -34,6 +34,7 @@ public class UserAccountSQLDao {
         else
             System.out.println("The password does not match.");
     }
+
     public Collection<UserAccount> getAllUserAccounts() {
         return UserAccountsRepository.findAll();
     }
@@ -54,38 +55,49 @@ public class UserAccountSQLDao {
         newUserAccount.setPassword(hashPassword(newUserAccount.getPassword()));
         UserAccountsRepository.save(newUserAccount);
     }
-    public Challenge findChallenge(String name){
-        for(Challenge c : challengeRepository.findAll())
-            if(c.getName().equalsIgnoreCase(name))
+
+    public Challenge findChallenge(String name) {
+        for (Challenge c : challengeRepository.findAll())
+            if (c.getName().equalsIgnoreCase(name))
                 return c;
         return null;
     }
 
+    public void completeChallenge(String[] info) {
+        UserAccount ua = UserAccountsRepository.findOne(Integer.parseInt(info[0]));
+        Challenge c = findChallenge(info[1]);
+        for (ChallengeAccepted ca : ua.getCurrentChallenges())
+            if (c.getName().equalsIgnoreCase(ca.getChallenge().getName())) {
+                ua.completeChallenge(ca);
+                UserAccountsRepository.save(ua);
+                return;
+            }
+    }
 
-    public void acceptChallenge(String[] info){
-//        UserAccount ua = (UserAccount) info[0];
-//        Challenge c = (Challenge) info[1];
+    public void acceptChallenge(String[] info) {
+
         UserAccount ua = UserAccountsRepository.findOne(Integer.parseInt(info[0]));
         Challenge c = findChallenge(info[1]);
         ChallengeAccepted ca = new ChallengeAccepted(c, new Date());
-       challengeAcceptedRepository.save(ca);
-       //TODO: se till så man inte kan lägga till samma flera gånger
-       if(!ua.getCurrentChallenges().contains(ca)){
-           System.out.println("hej");
-       ua.acceptChallenge(ca);
-       }
-       UserAccountsRepository.save(ua);
+        challengeAcceptedRepository.save(ca);
+        //TODO: se till så man inte kan lägga till samma flera gånger
+        if (!ua.getCurrentChallenges().contains(ca))
+            ua.acceptChallenge(ca);
+        UserAccountsRepository.save(ua);
     }
 
-    @Scheduled(cron = "0 0 * * * *")
-    public void checkChallenges() {
-        Date d = new Date();
-        for(UserAccount ua : UserAccountsRepository.findAll()){
-            for(ChallengeAccepted ca : ua.getCurrentChallenges())
-                if(ca.getDate().after(new Date(d.getTime() + TimeUnit.DAYS.toMillis(ca.getChallenge().getDuration()))))
-                    ua.getCurrentChallenges().remove(ca);
-        }
-
-    }
+//    @Scheduled(cron = "0 0 * * * *")
+//    @Scheduled(cron = "*/10 * * * * *")
+//    public void checkChallenges() {
+//        Date d = new Date();
+//        for (UserAccount ua : UserAccountsRepository.findAll()) {
+//            for (ChallengeAccepted ca : ua.getCurrentChallenges())
+//                if (ca.getDate().after(new Date(d.getTime() + TimeUnit.DAYS.toMillis(ca.getChallenge().getDuration())))){
+//                    ua.getCurrentChallenges().remove(ca);
+//                    UserAccountsRepository.save(ua);
+//                }
+//        }
+//
+//    }
 
 }

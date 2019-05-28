@@ -48,7 +48,10 @@ public class UserAccountController {
     public void acceptChallenge(@RequestBody final String[] info){
         UserAccountService.acceptChallenge(info);
     }
-
+    @RequestMapping(value = "/completechallenge", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void completeChallenge(@RequestBody final String[] info){
+        UserAccountService.completeChallenge(info);
+    }
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addUserAccount(@RequestBody UserAccount UserAccount) {
         UserAccountService.addUserAccount(UserAccount);

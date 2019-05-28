@@ -28,8 +28,11 @@ public class UserAccountService {
     public void updateUserAccount(UserAccount UserAccount){
         userAccountDao.updateUserAccount(UserAccount);
     }
-    public void acceptChallenge(@RequestBody final String[] info){
+    public void acceptChallenge(String[] info){
         userAccountDao.acceptChallenge(info);
+    }
+    public void completeChallenge(String[] info){
+        userAccountDao.completeChallenge(info);
     }
     public void addUserAccount(UserAccount UserAccount){
         userAccountDao.addUserAccount(UserAccount);
