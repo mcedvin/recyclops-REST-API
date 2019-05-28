@@ -56,7 +56,7 @@ public class UserAccountSQLDao {
         UserAccountsRepository.save(newUserAccount);
     }
 
-    public Challenge findChallenge(String name) {
+    private Challenge findChallenge(String name) {
         for (Challenge c : challengeRepository.findAll())
             if (c.getName().equalsIgnoreCase(name))
                 return c;
@@ -67,7 +67,7 @@ public class UserAccountSQLDao {
         UserAccount ua = UserAccountsRepository.findOne(Integer.parseInt(info[0]));
         Challenge c = findChallenge(info[1]);
         for (ChallengeAccepted ca : ua.getCurrentChallenges())
-            if (c.getName().equalsIgnoreCase(ca.getChallenge().getName())) {
+            if (c!= null && c.getName().equalsIgnoreCase(ca.getChallenge().getName())) {
                 ua.completeChallenge(ca);
                 UserAccountsRepository.save(ua);
                 return;
@@ -78,14 +78,15 @@ public class UserAccountSQLDao {
 
         UserAccount ua = UserAccountsRepository.findOne(Integer.parseInt(info[0]));
         Challenge c = findChallenge(info[1]);
-        ChallengeAccepted ca = new ChallengeAccepted(c, new Date());
-        challengeAcceptedRepository.save(ca);
-        //TODO: se till så man inte kan lägga till samma flera gånger
-        if (!ua.getCurrentChallenges().contains(ca))
+        if (!ua.hasAcceptedChallenge(c)) {
+            ChallengeAccepted ca = new ChallengeAccepted(c, new Date());
+            challengeAcceptedRepository.save(ca);
             ua.acceptChallenge(ca);
-        UserAccountsRepository.save(ua);
+            UserAccountsRepository.save(ua);
+        }
     }
 
+    //TODO: fixa scheduled
 //    @Scheduled(cron = "0 0 * * * *")
 //    @Scheduled(cron = "*/10 * * * * *")
 //    public void checkChallenges() {

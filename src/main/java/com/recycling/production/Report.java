@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-//TODO: skicka mail till sthlm stad?
 @Entity
 @Table(name = "report")
 public class Report implements Serializable {
@@ -16,10 +15,9 @@ public class Report implements Serializable {
     @OneToOne
     @JoinColumn(name = "station")
     private Station station;
+    @Temporal(TemporalType.DATE)
     @Column(name = "finalEndDate")
     private Date finalEndDate;
-    //TODO: sätta relation fungerar ej här. FIXA
-    //pga User UserAccount är 1..1?
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UserAccount")
     private UserAccount userAccount;

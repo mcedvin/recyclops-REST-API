@@ -75,6 +75,12 @@ public class UserAccount implements Serializable {
         completedChallenges.add(ca);
         currentChallenges.remove(ca);
     }
+    public boolean hasAcceptedChallenge(Challenge c){
+        for(ChallengeAccepted ca : currentChallenges)
+            if(c.getName().equalsIgnoreCase(ca.getChallenge().getName()))
+                return true;
+        return false;
+    }
     //TODO: schedule som tar bort från currentChallenges om den inte avklarad inom duration time
 
 }

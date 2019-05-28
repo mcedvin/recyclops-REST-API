@@ -14,8 +14,6 @@ import java.util.Collection;
 @RequestMapping("/challenges")
 public class ChallengeController {
 
-    //TODO: returnera http 400-kod ifall Challenge redan finns vid PUT/POST
-    //TODO: hantera ifall Challenge
     @Autowired
     private ChallengeService challengeService;
     @Autowired

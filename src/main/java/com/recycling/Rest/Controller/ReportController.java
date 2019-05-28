@@ -34,7 +34,6 @@ public class ReportController {
         return reportService.getAllReports();
     }
 
-    //TODO: returnera en modifierad report med bara schedule after currentDate
     @RequestMapping(value = "/active", method = RequestMethod.GET)
     public Collection<Report> getActiveReports() {
         return reportService.getActiveReports();
@@ -46,7 +45,6 @@ public class ReportController {
 //    }
 
 
-    //TODO: returnera alla aktuella rapporter för en station (argument station, returnerar en Collection Reports)
 //    @RequestMapping(value = "/singleStation", method = RequestMethod.GET)
 //    public Collection<Report> getReportsForStation(@RequestBody final Station station) {
 //        return reportService.getReportsForStation(station);
@@ -59,7 +57,7 @@ public class ReportController {
 
 
 
-    public Date findEndDate(Report report) {
+    private Date findEndDate(Report report) {
         Date lastDate = report.getCleaningSchedule().getDate();
         for (MaterialSchedule ms : report.getMaterialSchedules())
             if (ms.getDate().after(lastDate))
@@ -80,7 +78,7 @@ public class ReportController {
                     report.setUserAccount(userAccount);
             }
         report.setCleaningSchedule(report.getStation().getCleaningSchedule());
-        report.setMaterialSchedules(new ArrayList<MaterialSchedule>(report.getStation().getMaterialSchedules()));
+        report.setMaterialSchedules(new ArrayList<>(report.getStation().getMaterialSchedules()));
         report.setFinalEndDate(findEndDate(report));
         reportService.addReport(report);
     }
@@ -97,7 +95,7 @@ public class ReportController {
                     report.setUserAccount(userAccount);
             }
         report.setCleaningSchedule(report.getStation().getCleaningSchedule());
-        report.setMaterialSchedules(new ArrayList<MaterialSchedule>(report.getStation().getMaterialSchedules()));
+        report.setMaterialSchedules(new ArrayList<>(report.getStation().getMaterialSchedules()));
         report.setFinalEndDate(findEndDate(report));
 
         reportService.updateReport(report);

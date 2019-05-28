@@ -16,6 +16,7 @@ public class Challenge {
     @Column(name = "image")
     private byte[] image;
 
+    //TODO: kolla enum-POST med Sina, annars kanske ändra till String eller annat (OBS FUNGERAR ATT LÄGGA MED SIFFRA I DATABASEN)
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "category")
     private ChallengeCategory challengeCategory;

@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 @Repository
 public class StationSQLDao {
-    //TODO: sortera stationer? Utifrån
 
     @Autowired
     private StationRepository stationRepository;

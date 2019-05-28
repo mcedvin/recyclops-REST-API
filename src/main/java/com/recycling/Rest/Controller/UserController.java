@@ -29,9 +29,13 @@ public class UserController {
         return userService.getUserByEmail(mail);
     }
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public User getAndAuthenticateUser(@RequestBody String[] login){
-        return userService.getAndAuthenticateUser(login);
+//    @RequestMapping(value = "/authenticate", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public User getAndAuthenticateUser(@RequestBody String[] login){
+//        return userService.getAndAuthenticateUser(login);
+//    }
+    @RequestMapping(value = "/authenticate/{credentials}", method = RequestMethod.GET)
+    public User getAndAuthenticateUser(@PathVariable("credentials") String credentials){
+        return userService.getAndAuthenticateUser(credentials);
     }
 
     @RequestMapping(value = "/{mail}", method = RequestMethod.DELETE)

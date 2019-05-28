@@ -26,7 +26,16 @@ public class UserSQLDao {
         return null;
     }
 
-    public User getAndAuthenticateUser(String[] login) {
+//    public User getAndAuthenticateUser(String[] login) {
+//        for (User s : usersRepository.findAll()) {
+//            if (s.getEmail().equals(login[0])) {
+//                return (BCrypt.checkpw(login[1], s.getUserAccount().getPassword())) ? s : null;
+//            }
+//        }
+//        return null;
+//    }
+    public User getAndAuthenticateUser(String credentials) {
+        String[] login = credentials.split("\\+");
         for (User s : usersRepository.findAll()) {
             if (s.getEmail().equals(login[0])) {
                 return (BCrypt.checkpw(login[1], s.getUserAccount().getPassword())) ? s : null;

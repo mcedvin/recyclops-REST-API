@@ -15,6 +15,7 @@ public class ChallengeAccepted {
     @ManyToOne
     @JoinColumn(name = "challenge")
     private Challenge challenge;
+    @Temporal(TemporalType.DATE)
     @Column(name = "date")
     private Date date;
 
@@ -44,3 +45,5 @@ public class ChallengeAccepted {
     }
 
 }
+
+//TODO: om dateformated är fel, lägg till: @Temporal(TemporalType.DATE)
