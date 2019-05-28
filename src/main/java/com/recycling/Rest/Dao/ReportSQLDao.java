@@ -21,6 +21,7 @@ public class ReportSQLDao {
     public Collection<Report> getAllReports() {
         return reportRepository.findAll();
     }
+
     public Collection<Report> getActiveReports() {
         Collection<Report> activeReports = new LinkedList<>();
         Date currentDate = new Date();
@@ -29,33 +30,44 @@ public class ReportSQLDao {
                 for (MaterialSchedule ms : r.getMaterialSchedules())
                     if (currentDate.after(ms.getDate()))
                         r.getMaterialSchedules().remove(ms);
-                if (r.getCleaningSchedule()!=null && currentDate.after(r.getCleaningSchedule().getDate()))
+                if (r.getCleaningSchedule() != null && currentDate.after(r.getCleaningSchedule().getDate()))
                     r.setCleaningSchedule(null);
-                if(!r.getMaterialSchedules().isEmpty() || r.getCleaningSchedule() != null)
+                if (!r.getMaterialSchedules().isEmpty() || r.getCleaningSchedule() != null)
                     activeReports.add(r);
             }
         }
         return activeReports;
     }
 
-    public Collection<Report> getReportsForStation(Station station){
+    //    public Collection<Report> getReportsForStation(Station station){
+//        Collection<Report> reportsforStation = new LinkedList<>();
+//        for(Report r : getActiveReports()){
+//            if(r.getStation().getStationName().equalsIgnoreCase(station.getStationName())){
+//                reportsforStation.add(r);
+//            }
+//        }
+//        return reportsforStation;
+//    }
+    public Collection<Report> getReportsForStation(String station) {
         Collection<Report> reportsforStation = new LinkedList<>();
-        for(Report r : getActiveReports()){
-            if(r.getStation().getStationName().equalsIgnoreCase(station.getStationName())){
+        station = station.replace('+', ' ');
+        for (Report r : getActiveReports()) {
+            if (r.getStation().getStationName().equalsIgnoreCase(station)) {
                 reportsforStation.add(r);
             }
         }
         return reportsforStation;
     }
 
-    public Report getReportById(int id){
-        for(Report s : reportRepository.findAll()){
-            if(s.getId()==id)
+    public Report getReportById(int id) {
+        for (Report s : reportRepository.findAll()) {
+            if (s.getId() == id)
                 return s;
         }
         return null;
     }
-    public void deleteReportById(int id){
+
+    public void deleteReportById(int id) {
         for (Report s : getAllReports()) {
             if (s.getId() == id)
                 reportRepository.delete(s);
@@ -73,6 +85,7 @@ public class ReportSQLDao {
 //        }
         reportRepository.save(updatedReport);
     }
+
     public void addReport(Report newReport) {
         reportRepository.save((newReport));
         new MailHandler().sendMail(newReport);

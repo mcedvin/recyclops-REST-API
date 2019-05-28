@@ -20,7 +20,10 @@ public class ReportService {
     public Collection<Report> getActiveReports(){
         return reportSQLDao.getActiveReports();
     }
-    public Collection<Report> getReportsForStation(Station station){
+//    public Collection<Report> getReportsForStation(Station station){
+//        return reportSQLDao.getReportsForStation(station);
+//    }
+    public Collection<Report> getReportsForStation(String station){
         return reportSQLDao.getReportsForStation(station);
     }
     public Report getReportById(int id){

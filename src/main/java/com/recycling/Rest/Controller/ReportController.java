@@ -47,10 +47,17 @@ public class ReportController {
 
 
     //TODO: returnera alla aktuella rapporter för en station (argument station, returnerar en Collection Reports)
-    @RequestMapping(value = "/singleStation", method = RequestMethod.GET)
-    public Collection<Report> getReportsForStation(@RequestBody final Station station) {
+//    @RequestMapping(value = "/singleStation", method = RequestMethod.GET)
+//    public Collection<Report> getReportsForStation(@RequestBody final Station station) {
+//        return reportService.getReportsForStation(station);
+//    }
+    @RequestMapping(value = "/{station}", method = RequestMethod.GET)
+    public Collection<Report> getReportsForStation(@PathVariable("station") String station){
+        System.out.println(station);
         return reportService.getReportsForStation(station);
     }
+
+
 
     public Date findEndDate(Report report) {
         Date lastDate = report.getCleaningSchedule().getDate();
