@@ -2,6 +2,7 @@ package com.recycling.Rest.Service;
 
 import com.recycling.Rest.Dao.ReportSQLDao;
 import com.recycling.production.Report;
+import com.recycling.production.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,8 @@ public class ReportService {
     public Collection<Report> getActiveReports(){
         return reportSQLDao.getActiveReports();
     }
-    public Collection<Report> getReportsForStation(String stationName){
-        return reportSQLDao.getReportsForStation(stationName);
+    public Collection<Report> getReportsForStation(Station station){
+        return reportSQLDao.getReportsForStation(station);
     }
     public Report getReportById(int id){
         return reportSQLDao.getReportById(id);

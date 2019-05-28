@@ -1,9 +1,11 @@
 package com.recycling.Rest.Service;
 
 import com.recycling.Rest.Dao.UserAccountSQLDao;
+import com.recycling.production.ChallengeAccepted;
 import com.recycling.production.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Collection;
 
@@ -25,6 +27,9 @@ public class UserAccountService {
     }
     public void updateUserAccount(UserAccount UserAccount){
         userAccountDao.updateUserAccount(UserAccount);
+    }
+    public void acceptChallenge(@RequestBody final String[] info){
+        userAccountDao.acceptChallenge(info);
     }
     public void addUserAccount(UserAccount UserAccount){
         userAccountDao.addUserAccount(UserAccount);

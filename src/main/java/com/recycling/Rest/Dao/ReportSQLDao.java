@@ -4,6 +4,7 @@ import com.recycling.DB.repository.ReportRepository;
 import com.recycling.Rest.MailHandler;
 import com.recycling.production.MaterialSchedule;
 import com.recycling.production.Report;
+import com.recycling.production.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -37,10 +38,10 @@ public class ReportSQLDao {
         return activeReports;
     }
 
-    public Collection<Report> getReportsForStation(String stationName){
+    public Collection<Report> getReportsForStation(Station station){
         Collection<Report> reportsforStation = new LinkedList<>();
         for(Report r : getActiveReports()){
-            if(r.getStation().getStationName().equalsIgnoreCase(stationName)){
+            if(r.getStation().getStationName().equalsIgnoreCase(station.getStationName())){
                 reportsforStation.add(r);
             }
         }

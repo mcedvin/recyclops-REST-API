@@ -3,6 +3,7 @@ package com.recycling.production;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity(name = "UserAccount")
 @Table(name = "UserAccount")
@@ -22,7 +23,7 @@ public class UserAccount implements Serializable {
 
     @JoinColumn(name = "challenge")
         @ManyToMany
-        private Collection<Challenge> currentChallenges;
+        private Collection<ChallengeAccepted> currentChallenges;
     public UserAccount() {
 
     }
@@ -56,14 +57,21 @@ public class UserAccount implements Serializable {
         this.completedChallenges = completedChallenges;
     }
 
-    public Collection<Challenge> getCurrentChallenges() {
+    public Collection<ChallengeAccepted> getCurrentChallenges() {
         return currentChallenges;
     }
 
-    public void setCurrentChallenges(Collection<Challenge> currentChallenges) {
+    public void setCurrentChallenges(Collection<ChallengeAccepted> currentChallenges) {
         this.currentChallenges = currentChallenges;
     }
-    //TODO: complete challenge, antingen avklarad eller inte
+    public void acceptChallenge(ChallengeAccepted ca){
+        currentChallenges.add(ca);
+    }
+    //TODO: complete challenge
+    public void completeChallenge(Challenge c){
+        completedChallenges.add(c);
+        currentChallenges.remove(c);
+    }
     //TODO: schedule som tar bort från currentChallenges om den inte avklarad inom duration time
 
 }
