@@ -17,7 +17,7 @@ public class MailHandler {
 
         // Credential for email
         final String username = "iotrpiproject@gmail.com";
-        final String password = "IOT_raspb3rry";
+        final String password = "pvt15mail";
 
         // Set properties for smtp
         Properties props = new Properties();
