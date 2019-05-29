@@ -64,7 +64,6 @@ public class StationSQLDao {
         for (Station s : stationRepository.findAll()) {
             if (s.getCleaningSchedule() != null) {
                 if (currentDate.after(s.getCleaningSchedule().getDate())) {
-                    System.out.println("hej igen");
                     CleaningSchedule newCleaningSchedule = new CleaningSchedule(new Date(s.getCleaningSchedule().getDate().getTime() + TimeUnit.DAYS.toMillis(1)));
                     s.setCleaningSchedule(newCleaningSchedule);
                     cleaningScheduleRepository.save(newCleaningSchedule);

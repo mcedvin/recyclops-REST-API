@@ -17,6 +17,7 @@ public class ChallengeSQLDao {
         return challengeRepository.findAll();
     }
     public Challenge getChallengeByName(String name){
+        name = name.replace('+', ' ');
         for(Challenge c : challengeRepository.findAll())
             if(c.getName().equals(name))
                 return c;

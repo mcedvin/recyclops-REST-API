@@ -40,7 +40,7 @@ public class UserAccountController {
         UserAccountService.removeUserAccountById(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/put", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateUserAccount(@RequestBody final UserAccount UserAccount) {
         UserAccountService.updateUserAccount(UserAccount);
     }
@@ -52,7 +52,7 @@ public class UserAccountController {
     public void completeChallenge(@RequestBody final String[] info){
         UserAccountService.completeChallenge(info);
     }
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "post", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addUserAccount(@RequestBody UserAccount UserAccount) {
         UserAccountService.addUserAccount(UserAccount);
     }
