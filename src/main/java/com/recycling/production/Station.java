@@ -14,14 +14,14 @@ public class Station implements Serializable {
     private String stationName;
 
     @Column(name = "postNumber")
-    private int postNumber;
+    private String postNumber;
     @OneToOne()
     @JoinColumns(value = {@JoinColumn(name = "stationPositionX"),
             @JoinColumn(name = "stationPositionY")})
     private Position pos;
     @ManyToMany
     @JoinColumn(name = "availableMaterials")
-    private Collection<Material> availableMaterials = new ArrayList<Material>();
+    private Collection<Material> availableMaterials = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "cleaningSchedule")
@@ -29,9 +29,9 @@ public class Station implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "materialSchedule")
-    private Collection<MaterialSchedule> materialSchedules = new ArrayList<MaterialSchedule>();
+    private Collection<MaterialSchedule> materialSchedules = new ArrayList<>();
 
-    public Station(String stationName, int postNumber, Position pos) {
+    public Station(String stationName, String postNumber, Position pos) {
         this.stationName = stationName;
         this.postNumber = postNumber;
         this.pos = pos;
@@ -48,11 +48,11 @@ public class Station implements Serializable {
     public void setStationName(String stationName) {
         this.stationName = stationName;
     }
-    public int getPostNumber() {
+    public String getPostNumber() {
         return postNumber;
     }
 
-    public void setPostNumber(int postNumber) {
+    public void setPostNumber(String postNumber) {
         this.postNumber = postNumber;
     }
     public Collection<Material> getAvailableMaterials() {

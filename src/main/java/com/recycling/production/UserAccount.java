@@ -1,8 +1,13 @@
 package com.recycling.production;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Entity(name = "UserAccount")
 @Table(name = "UserAccount")
@@ -22,6 +27,7 @@ public class UserAccount implements Serializable {
 
     @JoinColumn(name = "challenge")
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<ChallengeAccepted> currentChallenges;
 
     public UserAccount() {
@@ -81,6 +87,13 @@ public class UserAccount implements Serializable {
                 return true;
         return false;
     }
-    //TODO: schedule som tar bort från currentChallenges om den inte avklarad inom duration time
+    public boolean verifyChallenges(){
+        for(ChallengeAccepted ca : currentChallenges){
+            if(ca.getDate().after(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(ca.getChallenge().getDuration())))){
+                currentChallenges.remove(ca);
+                return true;
+        }}
+        return false;
+    }
 
 }

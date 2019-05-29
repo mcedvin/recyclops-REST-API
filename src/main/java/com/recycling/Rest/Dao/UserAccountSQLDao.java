@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 @Repository
 public class UserAccountSQLDao {
@@ -44,7 +43,7 @@ public class UserAccountSQLDao {
     }
 
     public void removeUserAccountById(int id) {
-
+        UserAccountsRepository.delete(UserAccountsRepository.findOne(id));
     }
 
     public void updateUserAccount(UserAccount updatedUserAccount) {
@@ -67,7 +66,7 @@ public class UserAccountSQLDao {
         UserAccount ua = UserAccountsRepository.findOne(Integer.parseInt(info[0]));
         Challenge c = findChallenge(info[1]);
         for (ChallengeAccepted ca : ua.getCurrentChallenges())
-            if (c!= null && c.getName().equalsIgnoreCase(ca.getChallenge().getName())) {
+            if (c != null && c.getName().equalsIgnoreCase(ca.getChallenge().getName())) {
                 ua.completeChallenge(ca);
                 UserAccountsRepository.save(ua);
                 return;
@@ -86,19 +85,16 @@ public class UserAccountSQLDao {
         }
     }
 
-    //TODO: fixa scheduled
-//    @Scheduled(cron = "0 0 * * * *")
-//    @Scheduled(cron = "*/10 * * * * *")
-//    public void checkChallenges() {
-//        Date d = new Date();
-//        for (UserAccount ua : UserAccountsRepository.findAll()) {
-//            for (ChallengeAccepted ca : ua.getCurrentChallenges())
-//                if (ca.getDate().after(new Date(d.getTime() + TimeUnit.DAYS.toMillis(ca.getChallenge().getDuration())))){
-//                    ua.getCurrentChallenges().remove(ca);
-//                    UserAccountsRepository.save(ua);
-//                }
-//        }
-//
-//    }
+
+    //    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "0 0 * * * *")
+    public void checkChallenges() {
+        Date d = new Date();
+        for (UserAccount ua : UserAccountsRepository.findAll()) {
+            if (ua.verifyChallenges())
+                UserAccountsRepository.save(ua);
+        }
+
+    }
 
 }
