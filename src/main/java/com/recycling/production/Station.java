@@ -15,6 +15,9 @@ public class Station implements Serializable {
 
     @Column(name = "postNumber")
     private String postNumber;
+
+    @Column(name = "area")
+    private String area;
     @OneToOne()
     @JoinColumns(value = {@JoinColumn(name = "stationPositionX"),
             @JoinColumn(name = "stationPositionY")})
@@ -51,17 +54,15 @@ public class Station implements Serializable {
     public String getPostNumber() {
         return postNumber;
     }
-
     public void setPostNumber(String postNumber) {
         this.postNumber = postNumber;
     }
+    public String getarea() { return area; }
+    public void setarea(String area) { this.area = area; }
     public Collection<Material> getAvailableMaterials() {
         return availableMaterials;
     }
-
-    public void setAvailableMaterials(Collection<Material> availableMaterials){
-        this.availableMaterials = availableMaterials;
-    }
+    public void setAvailableMaterials(Collection<Material> availableMaterials){this.availableMaterials = availableMaterials;}
 
     public void addAvailableMaterial(Material m) {
         availableMaterials.add(m);
