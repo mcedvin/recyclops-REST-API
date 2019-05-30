@@ -16,12 +16,13 @@ public class Challenge {
     @Column(name = "image")
     private byte[] image;
 
-    //TODO: kolla enum-POST med Sina, annars kanske ändra till String eller annat (OBS FUNGERAR ATT LÄGGA MED SIFFRA I DATABASEN)
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "category")
-    private ChallengeCategory challengeCategory;
 
-    public Challenge(String name, String description, int duration, byte[] image, ChallengeCategory challengeCategory) {
+//    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "category")
+    private int challengeCategory;
+//    private ChallengeCategory challengeCategory;
+
+    public Challenge(String name, String description, int duration, byte[] image, int challengeCategory) {
         this.name = name;
         this.description = description;
         this.duration = duration;
@@ -58,6 +59,14 @@ public class Challenge {
         this.duration = duration;
     }
 
+    public int getChallengeCategory() {
+        return challengeCategory;
+    }
+
+    public void setChallengeCategory(int challengeCategory) {
+        this.challengeCategory = challengeCategory;
+    }
+
     public byte[] getImage() {
         return image;
     }
@@ -67,16 +76,16 @@ public class Challenge {
     }
 
 
-    public ChallengeCategory getChallengeCategory() {
-        return challengeCategory;
-    }
+//    public ChallengeCategory getChallengeCategory() {
+//        return challengeCategory;
+//    }
 
-    public enum ChallengeCategory {
-        //havet naturen djuren luften
-        HAVET,
-        NATUREN,
-        DJUREN,
-        LUFTEN
-    }
+//    public enum ChallengeCategory {
+//        //havet naturen djuren luften
+//        HAVET,
+//        NATUREN,
+//        DJUREN,
+//        LUFTEN
+//    }
 }
 
