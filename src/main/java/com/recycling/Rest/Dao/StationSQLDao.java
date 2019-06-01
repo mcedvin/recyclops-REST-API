@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
 @Repository
@@ -58,27 +57,28 @@ public class StationSQLDao {
         stationRepository.save(newStation);
     }
 
-    @Scheduled(cron = "0 0 * * * *")
+        @Scheduled(cron = "0 0 * * * *")
+//    @Scheduled(cron = "*/10 * * * * *")
+
     public void checkSchedules() {
         Date currentDate = new Date();
         for (Station s : stationRepository.findAll()) {
             if (s.getCleaningSchedule() != null) {
                 if (currentDate.after(s.getCleaningSchedule().getDate())) {
-                    CleaningSchedule newCleaningSchedule = new CleaningSchedule(new Date(s.getCleaningSchedule().getDate().getTime() + TimeUnit.DAYS.toMillis(1)));
-                    s.setCleaningSchedule(newCleaningSchedule);
-                    cleaningScheduleRepository.save(newCleaningSchedule);
+                    s.getCleaningSchedule().setDate(new Date(s.getCleaningSchedule().getDate().getTime() + TimeUnit.DAYS.toMillis(1)));
+                    cleaningScheduleRepository.save(s.getCleaningSchedule());
                     stationRepository.save(s);
                 }
             }
+            //TODO: måste testa detta, nytt och ändrat
+            //TODO: lägga in alla materialschedules igen
             if (!s.getMaterialSchedules().isEmpty()) {
-                Collection<MaterialSchedule> newMaterialSchedules = new LinkedList<>();
                 for (MaterialSchedule ms : s.getMaterialSchedules()) {
                     if (currentDate.after(ms.getDate())) {
-                        MaterialSchedule newMs = new MaterialSchedule(new Date(ms.getDate().getTime() + TimeUnit.DAYS.toMillis(2)), ms.getMaterial());
-                        materialScheduleRepository.save(newMs);
+                        ms.setDate(new Date(ms.getDate().getTime() + TimeUnit.DAYS.toMillis(2)));
+                        materialScheduleRepository.save(ms);
                     }
                 }
-                s.setMaterialSchedules(newMaterialSchedules);
                 stationRepository.save(s);
             }
         }
